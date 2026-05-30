@@ -1,0 +1,30 @@
+<article class="project-card">
+  @if (project.imagenPrincipal) {
+    <img [src]="project.imagenPrincipal" [alt]="project.nombre" class="project-image" />
+  } @else {
+    <div class="project-placeholder">
+      <span>{{ project.nombre.slice(0, 2).toUpperCase() }}</span>
+    </div>
+  }
+
+  <div class="content">
+    <span class="type">{{ project.tipo }}</span>
+    <h3>{{ project.nombre }}</h3>
+    <p>{{ project.descripcionBreve }}</p>
+  </div>
+
+  <div class="tags" aria-label="Tecnologias utilizadas">
+    @for (technology of project.tecnologias; track technology) {
+      <span>{{ technology }}</span>
+    }
+  </div>
+
+  <div class="actions">
+    @if (project.repositorioUrl) {
+      <a [href]="project.repositorioUrl" target="_blank" rel="noopener">Repositorio</a>
+    }
+    @if (project.demoUrl) {
+      <a [href]="project.demoUrl" target="_blank" rel="noopener">Demo</a>
+    }
+  </div>
+</article>

@@ -1,0 +1,67 @@
+.programmer-card {
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
+.avatar-frame {
+  background: #0e1015;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 112px;
+}
+
+.avatar {
+  height: 112px;
+  object-fit: cover;
+  width: 112px;
+}
+
+.avatar-fallback {
+  align-items: center;
+  background: #20242d;
+  color: var(--color-accent);
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 800;
+  justify-content: center;
+}
+
+.content {
+  display: grid;
+  gap: 8px;
+}
+
+.role {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+h3 {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+p {
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.card-link {
+  align-self: end;
+  color: var(--color-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}

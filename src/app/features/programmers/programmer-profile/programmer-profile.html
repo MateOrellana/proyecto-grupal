@@ -1,0 +1,75 @@
+@if (programador$ | async; as programador) {
+  <section class="profile-hero">
+    <a routerLink="/" fragment="programadores" class="back-link">Volver al equipo</a>
+
+    <div class="profile-layout">
+      <div class="avatar-panel">
+        @if (programador.fotoPerfil) {
+          <img [src]="programador.fotoPerfil" [alt]="programador.nombreCompleto" class="avatar" />
+        } @else {
+          <div class="avatar avatar-fallback">{{ initials(programador.nombreCompleto) }}</div>
+        }
+      </div>
+
+      <div class="profile-copy">
+        <p class="eyebrow">{{ programador.especialidad }}</p>
+        <h1>{{ programador.nombreCompleto }}</h1>
+        <p>{{ programador.descripcionCompleta }}</p>
+
+        <div class="profile-actions">
+          @if (currentUser$ | async) {
+            <a routerLink="/" fragment="contacto" class="button primary">Enviar solicitud</a>
+          } @else {
+            <a routerLink="/login" class="button primary">Iniciar sesion para solicitar</a>
+          }
+          <a routerLink="/" fragment="proyectos" class="button secondary">Ver proyectos</a>
+        </div>
+
+        <div class="profile-links">
+          @if (programador.github) {
+            <a [href]="programador.github" target="_blank" rel="noopener">
+              <img src="/images/006-enlace.png" alt="" />
+              GitHub
+            </a>
+          }
+          @if (programador.linkedin) {
+            <a [href]="programador.linkedin" target="_blank" rel="noopener">
+              <img src="/images/004-linkedin.png" alt="" />
+              LinkedIn
+            </a>
+          }
+          @if (programador.correoContacto) {
+            <a [href]="'mailto:' + programador.correoContacto">
+              <img src="/images/005-telefono.png" alt="" />
+              {{ programador.correoContacto }}
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="section-heading">
+      <p class="eyebrow">Proyectos</p>
+      <h2>Proyectos asociados</h2>
+    </div>
+
+    @if (proyectos$ | async; as proyectos) {
+      @if (proyectos.length > 0) {
+        <div class="project-grid">
+          @for (proyecto of proyectos; track proyecto.id) {
+            <app-project-card [project]="proyecto" />
+          }
+        </div>
+      } @else {
+        <p class="empty-state">Este programador aun no tiene proyectos asociados.</p>
+      }
+    }
+  </section>
+} @else {
+  <section class="empty-page">
+    <h1>Perfil no encontrado</h1>
+    <a routerLink="/">Volver al inicio</a>
+  </section>
+}

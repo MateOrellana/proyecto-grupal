@@ -1,0 +1,82 @@
+<section class="auth-page">
+  <div class="auth-copy">
+    <p class="eyebrow">Registro</p>
+    <h1>Crea una cuenta para contactar al equipo.</h1>
+    <p>
+      El registro es para usuarios externos. Las cuentas de programadores se crean directamente
+      desde Firebase Authentication y su perfil publico se administra en Strapi.
+    </p>
+  </div>
+
+  <div class="auth-panel">
+    <div class="auth-panel-body">
+      <h2>Crear cuenta</h2>
+
+      @if (errorMessage) {
+        <div class="alert alert-error">
+          <span>{{ errorMessage }}</span>
+        </div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+        <label class="form-control">
+          <span class="label-text">Nombre</span>
+          <input
+            type="text"
+            formControlName="displayName"
+            class="input input-bordered w-full"
+            placeholder="Tu nombre"
+            autocomplete="name"
+          />
+          @if (form.controls.displayName.touched && form.controls.displayName.invalid) {
+            <span class="field-error">Ingresa al menos 3 caracteres.</span>
+          }
+        </label>
+
+        <label class="form-control">
+          <span class="label-text">Correo electronico</span>
+          <input
+            type="email"
+            formControlName="email"
+            class="input input-bordered w-full"
+            placeholder="correo@ejemplo.com"
+            autocomplete="email"
+          />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <span class="field-error">Ingresa un correo valido.</span>
+          }
+        </label>
+
+        <label class="form-control">
+          <span class="label-text">Contrasena</span>
+          <input
+            type="password"
+            formControlName="password"
+            class="input input-bordered w-full"
+            placeholder="Minimo 6 caracteres"
+            autocomplete="new-password"
+          />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <span class="field-error">La contrasena debe tener al menos 6 caracteres.</span>
+          }
+        </label>
+
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          {{ loading ? 'Creando cuenta...' : 'Registrarme' }}
+        </button>
+      </form>
+
+      <div class="divider">o</div>
+
+      <button type="button" class="btn btn-outline" (click)="registerWithGoogle()" [disabled]="loading">
+        <span class="google-mark">G</span>
+        Registrarme con Google
+      </button>
+
+      <p class="auth-link">
+        Ya tienes cuenta?
+        <a routerLink="/login">Iniciar sesion</a>
+      </p>
+    </div>
+  </div>
+</section>

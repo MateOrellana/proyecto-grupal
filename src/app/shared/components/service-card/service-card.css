@@ -1,0 +1,51 @@
+.service-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: grid;
+  gap: 20px;
+  min-height: 230px;
+  padding: 24px;
+}
+
+.icon-box {
+  align-items: center;
+  background: rgba(214, 179, 106, 0.12);
+  border: 1px solid rgba(214, 179, 106, 0.28);
+  border-radius: 8px;
+  display: inline-flex;
+  height: 52px;
+  justify-content: center;
+  width: 52px;
+}
+
+.icon-box img {
+  filter: invert(88%) sepia(28%) saturate(606%) hue-rotate(348deg) brightness(97%) contrast(92%);
+  height: 24px;
+  width: 24px;
+}
+
+.service-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.service-copy span {
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.service-copy h3 {
+  color: var(--color-text);
+  font-size: 1.18rem;
+  margin: 0;
+}
+
+.service-copy p {
+  color: var(--color-muted);
+  line-height: 1.65;
+  margin: 0;
+}

@@ -1,0 +1,96 @@
+<section id="inicio" class="hero">
+  <div class="hero-portraits" aria-hidden="true">
+    <img src="/images/programador1.png" alt="" class="portrait portrait-one" />
+    <img src="/images/programador2.png" alt="" class="portrait portrait-two" />
+  </div>
+
+  <div class="hero-content">
+    <p class="eyebrow">Portafolio profesional</p>
+    <h1>Soluciones web claras para ideas que necesitan verse bien y funcionar mejor.</h1>
+    <p class="hero-copy">
+      Somos dos programadores construyendo una aplicacion con Angular, Firebase, Firestore y
+      Strapi para presentar perfiles, servicios, proyectos y solicitudes de contacto.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/" fragment="nosotros" class="button primary">Conocer equipo</a>
+      <a routerLink="/" fragment="contacto" class="button secondary">Solicitar proyecto</a>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="section about-section">
+  <div class="section-heading">
+    <p class="eyebrow">Sobre nosotros</p>
+    <h2>Dos perfiles que se complementan para crear aplicaciones web completas.</h2>
+  </div>
+
+  <div class="about-grid">
+    <p>
+      El proyecto presenta un portafolio multiusuario donde cada programador tiene su propio
+      perfil, sus proyectos relacionados y una forma directa para recibir solicitudes.
+    </p>
+    <div class="about-stats">
+      <span>Angular</span>
+      <span>Firebase Auth</span>
+      <span>Cloud Firestore</span>
+      <span>Strapi CMS</span>
+    </div>
+  </div>
+</section>
+
+<section id="programadores" class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Equipo</p>
+    <h2>Programadores</h2>
+  </div>
+
+  @if (programadores$ | async; as programadores) {
+    <div class="grid two-columns">
+      @for (programador of programadores; track programador.id) {
+        <app-programmer-card [programmer]="programador" />
+      }
+    </div>
+  }
+</section>
+
+<section id="servicios" class="section section-panel">
+  <div class="section-heading">
+    <p class="eyebrow">Servicios</p>
+    <h2>Areas de especializacion</h2>
+  </div>
+
+  @if (servicios$ | async; as servicios) {
+    <div class="grid three-columns">
+      @for (servicio of servicios; track servicio.id) {
+        <app-service-card [service]="servicio" [iconSrc]="serviceIcon(servicio.id)" />
+      }
+    </div>
+  }
+</section>
+
+<section id="proyectos" class="section">
+  <div class="section-heading">
+    <p class="eyebrow">Proyectos</p>
+    <h2>Proyectos destacados</h2>
+  </div>
+
+  @if (proyectosDestacados$ | async; as proyectos) {
+    <div class="grid two-columns">
+      @for (proyecto of proyectos; track proyecto.id) {
+        <app-project-card [project]="proyecto" />
+      }
+    </div>
+  }
+</section>
+
+<section id="contacto" class="contact-section">
+  <div class="contact-copy">
+    <p class="eyebrow">Contacto</p>
+    <h2>Elige un programador y envia una solicitud para tu proyecto.</h2>
+    <p>
+      En la siguiente fase se conectara el formulario con Firestore para registrar y gestionar
+      cada solicitud.
+    </p>
+  </div>
+  <a routerLink="/" fragment="programadores" class="button primary">Elegir programador</a>
+</section>

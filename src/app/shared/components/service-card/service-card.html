@@ -1,0 +1,10 @@
+<article class="service-card">
+  <div class="icon-box">
+    <img [src]="iconSrc" [alt]="service.nombre" />
+  </div>
+  <div class="service-copy">
+    <span>{{ service.categoria || 'Servicio' }}</span>
+    <h3>{{ service.nombre }}</h3>
+    <p>{{ service.descripcion }}</p>
+  </div>
+</article>

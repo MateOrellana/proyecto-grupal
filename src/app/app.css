@@ -1,0 +1,4 @@
+.page-shell {
+  background: var(--color-bg);
+  min-height: calc(100vh - 140px);
+}

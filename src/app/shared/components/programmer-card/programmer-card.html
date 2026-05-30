@@ -1,0 +1,17 @@
+<article class="programmer-card">
+  <div class="avatar-frame">
+    @if (programmer.fotoPerfil) {
+      <img [src]="programmer.fotoPerfil" [alt]="programmer.nombreCompleto" class="avatar" />
+    } @else {
+      <div class="avatar avatar-fallback">{{ initials(programmer.nombreCompleto) }}</div>
+    }
+  </div>
+
+  <div class="content">
+    <p class="role">{{ programmer.especialidad }}</p>
+    <h3>{{ programmer.nombreCompleto }}</h3>
+    <p>{{ programmer.descripcionBreve }}</p>
+  </div>
+
+  <a class="card-link" [routerLink]="['/programadores', programmer.slug]">Ver perfil completo</a>
+</article>
