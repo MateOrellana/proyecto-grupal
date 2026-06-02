@@ -18,9 +18,9 @@
 
         <div class="profile-actions">
           @if (currentUser$ | async) {
-            <a routerLink="/" fragment="contacto" class="button primary">Enviar solicitud</a>
+            <a [routerLink]="['/solicitar', programador.slug]" class="button primary">Enviar solicitud</a>
           } @else {
-            <a routerLink="/login" class="button primary">Iniciar sesion para solicitar</a>
+            <a routerLink="/login" [queryParams]="{ returnUrl: '/solicitar/' + programador.slug }" class="button primary">Iniciar sesión para solicitar</a>
           }
           <a routerLink="/" fragment="proyectos" class="button secondary">Ver proyectos</a>
         </div>

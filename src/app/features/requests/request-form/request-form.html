@@ -1,0 +1,62 @@
+@if (programador$ | async; as programador) {
+  <section class="auth-page">
+    <div class="auth-copy">
+      <p class="eyebrow">Contacto Profesional</p>
+      <h1>Enviar propuesta a {{ programador.nombreCompleto }}</h1>
+      <p>Describe tu idea de proyecto con el mayor detalle posible. El desarrollador recibirá una notificación en su panel de control.</p>
+      <a [routerLink]="['/programadores', programador.slug]" class="back-link">Volver al perfil</a>
+    </div>
+
+    <div class="auth-panel">
+      <div class="auth-panel-body">
+        <h2>Nueva Solicitud</h2>
+
+        @if (successMessage) {
+          <div class="alert alert-success bg-success/20 border border-success text-success p-4 rounded mb-4">
+            <span>{{ successMessage }}</span>
+          </div>
+        }
+        @if (errorMessage) {
+          <div class="alert alert-error bg-error/20 border border-error text-error p-4 rounded mb-4">
+            <span>{{ errorMessage }}</span>
+          </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit(programador)" class="form-grid">
+          <label class="form-control">
+            <span class="label-text">Tu Nombre</span>
+            <input type="text" formControlName="nombreSolicitante" class="input input-bordered w-full" placeholder="Ej. Juan Pérez" />
+            @if (form.controls.nombreSolicitante.touched && form.controls.nombreSolicitante.invalid) {
+              <span class="field-error">El nombre es requerido (mínimo 3 letras).</span>
+            }
+          </label>
+
+          <label class="form-control">
+            <span class="label-text">Tu Correo de Contacto</span>
+            <input type="email" formControlName="correoSolicitante" class="input input-bordered w-full" placeholder="correo@ejemplo.com" />
+            @if (form.controls.correoSolicitante.touched && form.controls.correoSolicitante.invalid) {
+              <span class="field-error">Ingresa un correo electrónico válido.</span>
+            }
+          </label>
+
+          <label class="form-control">
+            <span class="label-text">Idea o Descripción del Proyecto</span>
+            <textarea formControlName="descripcionProyecto" class="textarea textarea-bordered h-32 bg-[#0c0e12] border-[var(--color-border)] text-[var(--color-text)] focus:border-[var(--color-accent)] focus:outline-none p-3 rounded" placeholder="Detalla los requerimientos, objetivos y alcances de tu aplicación..."></textarea>
+            @if (form.controls.descripcionProyecto.touched && form.controls.descripcionProyecto.invalid) {
+              <span class="field-error">La descripción es requerida (mínimo 10 caracteres).</span>
+            }
+          </label>
+
+          <button type="submit" class="btn btn-primary w-full" [disabled]="loading">
+            {{ loading ? 'Enviando...' : 'Enviar Solicitud de Proyecto' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="empty-page flex flex-col justify-center items-center min-h-[60vh]">
+    <h1 class="text-2xl font-bold mb-4">Programador no especificado</h1>
+    <a routerLink="/" class="text-[var(--color-accent)] font-bold">Volver al inicio</a>
+  </section>
+}
