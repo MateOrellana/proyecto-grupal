@@ -72,15 +72,28 @@
 
 <section class="section tech-section">
   <div class="section-heading">
-    <p class="eyebrow">Tecnologias</p>
+    <p class="eyebrow">Tecnologías</p>
     <h2>Herramientas con las que construimos productos web.</h2>
   </div>
-
-  <div class="tech-grid">
-    @for (technology of technologies; track technology.name) {
-      <div class="tech-item">
-        <img [src]="technology.icon" [alt]="technology.name" />
-        <span>{{ technology.name }}</span>
+  <div class="tech-categories-grid">
+    @for (category of techCategories; track category.title) {
+      <div class="tech-card" [style.border-top-color]="category.color">
+        <div class="tech-card-header">
+          <div class="mac-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <h3 class="tech-card-title">{{ category.title }}</h3>
+        </div>
+        <div class="tech-items-grid">
+          @for (tech of category.items; track tech.name) {
+            <div class="tech-card-item">
+              <img [src]="tech.icon" [alt]="tech.name" />
+              <span>{{ tech.name }}</span>
+            </div>
+          }
+        </div>
       </div>
     }
   </div>

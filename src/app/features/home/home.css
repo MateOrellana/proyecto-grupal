@@ -287,22 +287,82 @@ h1 {
   padding-top: 42px;
 }
 
-.tech-grid {
+.tech-categories-grid {
   display: grid;
-  gap: 14px;
-  grid-template-columns: repeat(8, minmax(92px, 1fr));
+  gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.tech-item {
-  align-items: center;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+.tech-card {
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-top-width: 4px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.tech-card-header {
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  padding: 14px 16px;
+  position: relative;
+}
+
+.mac-dots {
+  display: flex;
+  gap: 6px;
+  position: absolute;
+}
+
+.mac-dots .dot {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
+.mac-dots .red { background: #ff5f56; }
+.mac-dots .yellow { background: #ffbd2e; }
+.mac-dots .green { background: #27c93f; }
+
+.tech-card-title {
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.tech-items-grid {
   display: grid;
+  gap: 20px 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 24px 16px;
+}
+
+.tech-card-item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  justify-items: center;
-  min-height: 112px;
-  padding: 16px 10px;
+  text-align: center;
+}
+
+.tech-card-item img {
+  height: 38px;
+  object-fit: contain;
+  width: 42px;
+}
+
+.tech-card-item span {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .tech-item img {
@@ -379,8 +439,10 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .tech-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .three-columns,
+  .project-grid,
+  .tech-categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   h1 {
@@ -414,7 +476,7 @@ h1 {
 
   .three-columns,
   .project-grid,
-  .tech-grid {
+  .tech-categories-grid {
     grid-template-columns: 1fr;
   }
 
