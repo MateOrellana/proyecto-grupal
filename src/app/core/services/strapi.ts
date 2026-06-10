@@ -394,7 +394,7 @@ const FALLBACK_PROGRAMADORES: Programador[] = [
     fotoPerfil: '/images/Programador1.png',
     correoContacto: 'salvaradom1@est.ups.edu.ec',
     github: 'https://github.com/sebmrd',
-    linkedin: 'https://linkedin.com/in/sebastian-alvarado-dev',
+    linkedin: 'https://linkedin.com/in/sebas-alvaradom',
     slug: 'sebastian-alvarado',
     activo: true,
   },
