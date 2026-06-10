@@ -27,7 +27,7 @@ export class Home {
     { name: 'Firebase', icon: '/images/firebase.png' },
     { name: 'Strapi', icon: '/images/strapi.png' },
     { name: 'MySQL', icon: '/images/mysql.png' },
-    { name: 'Git', icon: '/images/git.png' },
+    { name: 'Git', icon: '/images/git.png' }
   ];
 
   serviceIcon(serviceId: string): string {
