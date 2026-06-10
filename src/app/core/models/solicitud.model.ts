@@ -6,6 +6,7 @@ export interface Solicitud {
   correoSolicitante: string;
   descripcionProyecto: string;
   programadorId: string;
+  programadorSlug?: string;
   programadorNombre: string;
   usuarioUid: string;
   usuarioEmail: string;

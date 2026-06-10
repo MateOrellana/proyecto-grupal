@@ -40,11 +40,11 @@ body {
 
 body::before {
   background:
-    linear-gradient(rgba(8, 9, 11, 0.72), rgba(8, 9, 11, 0.84)),
-    url('/images/imagenprogram2.png') center / cover no-repeat;
+    radial-gradient(circle at 24% 32%, rgba(214, 179, 106, 0.12), transparent 22rem),
+    radial-gradient(circle at 74% 20%, rgba(143, 180, 214, 0.1), transparent 24rem);
   content: "";
   inset: 0;
-  opacity: 0.22;
+  opacity: 0.72;
   pointer-events: none;
   position: fixed;
   z-index: -1;

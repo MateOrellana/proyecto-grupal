@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { map, shareReplay, switchMap } from 'rxjs';
 
 import { StrapiService } from '../../../core/services/strapi';
 import { AuthService } from '../../../core/services/auth';
@@ -20,6 +20,7 @@ export class ProgrammerProfile {
 
   readonly slug$ = this.route.paramMap.pipe(map((params) => params.get('slug') ?? ''));
   readonly currentUser$ = this.auth.currentUser$;
+  readonly configuracion$ = this.strapi.getConfiguracionSitio().pipe(shareReplay(1));
 
   readonly programador$ = this.slug$.pipe(
     switchMap((slug) => this.strapi.getProgramadorBySlug(slug)),

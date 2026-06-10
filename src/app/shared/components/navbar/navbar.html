@@ -1,9 +1,13 @@
 <header class="navbar" [class.scrolled]="isScrolled()">
   <a class="brand" routerLink="/">
-    <span class="brand-mark">
-      <img src="/images/logoempresa.png" alt="WebFlow" />
-    </span>
-    <span class="brand-text">WebFlow</span>
+    @if (configuracion$ | async; as config) {
+      @if (config.logo) {
+        <span class="brand-mark">
+          <img [src]="config.logo" [alt]="config.nombreEmpresa" />
+        </span>
+      }
+      <span class="brand-text">{{ config.nombreEmpresa }}</span>
+    }
   </a>
 
   <nav class="nav-links" aria-label="Navegacion principal">

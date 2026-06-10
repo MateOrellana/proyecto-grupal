@@ -10,5 +10,5 @@ import { Servicio } from '../../../core/models/servicio.model';
 })
 export class ServiceCard {
   @Input({ required: true }) service!: Servicio;
-  @Input() iconSrc = '/images/003-asistencia.png';
+  @Input() iconSrc?: string;
 }

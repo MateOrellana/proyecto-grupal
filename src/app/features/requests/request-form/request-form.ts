@@ -78,6 +78,7 @@ export class RequestForm implements OnInit {
         correoSolicitante: formValues.correoSolicitante,
         descripcionProyecto: formValues.descripcionProyecto,
         programadorId: programador.id,
+        programadorSlug: programador.slug,
         programadorNombre: programador.nombreCompleto,
         usuarioUid: user.uid,
         usuarioEmail: user.email ?? ''

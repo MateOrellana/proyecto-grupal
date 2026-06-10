@@ -1,6 +1,10 @@
 <article class="service-card">
   <div class="icon-box">
-    <img [src]="iconSrc" [alt]="service.nombre" />
+    @if (iconSrc) {
+      <img [src]="iconSrc" [alt]="service.nombre" />
+    } @else {
+      <span>{{ service.nombre.slice(0, 1).toUpperCase() }}</span>
+    }
   </div>
   <div class="service-copy">
     <span>{{ service.categoria || 'Servicio' }}</span>

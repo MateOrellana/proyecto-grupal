@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   get currentUser(): User | null {
-    return this.currentUserSubject.value;
+    return this.currentUserSubject.value ?? this.firebase.auth.currentUser;
   }
 
   async register(email: string, password: string, displayName?: string) {
@@ -40,25 +40,30 @@ export class AuthService {
 
     if (displayName?.trim()) {
       await updateProfile(credential.user, { displayName: displayName.trim() });
-      this.currentUserSubject.next(credential.user);
     }
 
+    this.setCurrentUser(credential.user);
     return credential;
   }
 
-  login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.firebase.auth, email, password);
+  async login(email: string, password: string) {
+    const credential = await signInWithEmailAndPassword(this.firebase.auth, email, password);
+    this.setCurrentUser(credential.user);
+    return credential;
   }
 
-  loginWithGoogle() {
+  async loginWithGoogle() {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
 
-    return signInWithPopup(this.firebase.auth, provider);
+    const credential = await signInWithPopup(this.firebase.auth, provider);
+    this.setCurrentUser(credential.user);
+    return credential;
   }
 
-  logout() {
-    return signOut(this.firebase.auth);
+  async logout() {
+    await signOut(this.firebase.auth);
+    this.setCurrentUser(null);
   }
 
   getCurrentUserWhenReady(): Promise<User | null> {
@@ -72,5 +77,10 @@ export class AuthService {
         map(() => this.currentUser),
       ),
     );
+  }
+
+  private setCurrentUser(user: User | null) {
+    this.currentUserSubject.next(user);
+    this.authReadySubject.next(true);
   }
 }

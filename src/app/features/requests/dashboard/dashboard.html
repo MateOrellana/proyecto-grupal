@@ -2,10 +2,20 @@
   <div class="section-heading mb-8">
     <p class="eyebrow">Panel de Control</p>
     <h2>{{ isProgrammer ? 'Solicitudes Recibidas' : 'Mis Solicitudes de Proyecto' }}</h2>
+    @if (isProgrammer) {
+      <p class="text-[var(--color-muted)]">Administrador: {{ adminName }}</p>
+    }
   </div>
 
   @if (loading) {
-    <div class="text-center py-12"><span class="loading loading-spinner text-[var(--color-accent)]">Cargando...</span></div>
+    <div class="text-center py-12">
+      <span class="loading loading-spinner text-[var(--color-accent)]">Cargando...</span>
+    </div>
+  } @else if (errorMessage) {
+    <div class="bg-[var(--color-surface)] border border-[var(--color-border)] p-12 text-center rounded-lg">
+      <p class="text-[var(--color-muted)] text-lg mb-4">{{ errorMessage }}</p>
+      <a routerLink="/login" class="btn btn-primary">Iniciar sesion</a>
+    </div>
   } @else {
     @if (solicitudes.length === 0) {
       <div class="bg-[var(--color-surface)] border border-[var(--color-border)] p-12 text-center rounded-lg">
@@ -19,15 +29,19 @@
               <th class="p-4">{{ isProgrammer ? 'Cliente' : 'Desarrollador' }}</th>
               <th class="p-4">Proyecto</th>
               <th class="p-4">Estado</th>
-              <th class="p-4">Acción</th>
+              <th class="p-4">Accion</th>
             </tr>
           </thead>
           <tbody>
             @for (solicitud of solicitudes; track solicitud.id) {
               <tr class="border-t border-[var(--color-border)] hover:bg-[#171a21]/50">
                 <td class="p-4">
-                  <div class="font-bold text-[var(--color-text)]">{{ isProgrammer ? solicitud.nombreSolicitante : solicitud.programadorNombre }}</div>
-                  <div class="text-xs text-[var(--color-muted)]">{{ isProgrammer ? solicitud.correoSolicitante : solicitud.usuarioEmail }}</div>
+                  <div class="font-bold text-[var(--color-text)]">
+                    {{ isProgrammer ? solicitud.nombreSolicitante : solicitud.programadorNombre }}
+                  </div>
+                  <div class="text-xs text-[var(--color-muted)]">
+                    {{ isProgrammer ? solicitud.correoSolicitante : solicitud.usuarioEmail }}
+                  </div>
                 </td>
                 <td class="p-4 max-w-xs">
                   <p class="text-sm text-[var(--color-text)]">{{ solicitud.descripcionProyecto }}</p>
@@ -38,11 +52,13 @@
                   }
                 </td>
                 <td class="p-4">
-                  <span class="px-2 py-1 rounded text-xs font-bold uppercase"
-                        [class.bg-yellow-500\/20]="solicitud.estado === 'pendiente'"
-                        [class.text-yellow-500]="solicitud.estado === 'pendiente'"
-                        [class.bg-green-500\/20]="solicitud.estado === 'respondida'"
-                        [class.text-green-500]="solicitud.estado === 'respondida'">
+                  <span
+                    class="px-2 py-1 rounded text-xs font-bold uppercase"
+                    [class.bg-yellow-500\/20]="solicitud.estado === 'pendiente'"
+                    [class.text-yellow-500]="solicitud.estado === 'pendiente'"
+                    [class.bg-green-500\/20]="solicitud.estado === 'respondida'"
+                    [class.text-green-500]="solicitud.estado === 'respondida'"
+                  >
                     {{ solicitud.estado }}
                   </span>
                 </td>
@@ -68,9 +84,13 @@
       <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg w-full max-w-lg p-6">
         <h3 class="text-xl font-bold mb-2 text-[var(--color-text)]">Responder a {{ selectedSolicitud.nombreSolicitante }}</h3>
         <p class="text-sm text-[var(--color-muted)] mb-4">"{{ selectedSolicitud.descripcionProyecto }}"</p>
-        
+
         <form [formGroup]="answerForm" (ngSubmit)="submitAnswer()">
-          <textarea formControlName="respuesta" class="input input-bordered w-full h-32 py-3 mb-4" placeholder="Escribe tu observación..."></textarea>
+          <textarea
+            formControlName="respuesta"
+            class="input input-bordered w-full h-32 py-3 mb-4"
+            placeholder="Escribe tu observacion..."
+          ></textarea>
           <div class="flex justify-end gap-3">
             <button type="button" class="btn btn-outline" (click)="closeAnswerModal()">Cancelar</button>
             <button type="submit" class="btn btn-primary" [disabled]="answerForm.invalid">Guardar</button>

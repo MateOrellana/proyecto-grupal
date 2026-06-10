@@ -4,7 +4,6 @@ import {
   collection,
   doc,
   getDocs,
-  orderBy,
   query,
   serverTimestamp,
   updateDoc,
@@ -33,23 +32,28 @@ export class RequestService {
   }
 
   async getRequestsByUser(usuarioUid: string): Promise<Solicitud[]> {
-    const reference = collection(this.firebase.firestore, this.collectionName);
-    const requestQuery = query(
-      reference,
-      where('usuarioUid', '==', usuarioUid),
-      orderBy('fechaCreacion', 'desc'),
-    );
-
-    const snapshot = await getDocs(requestQuery);
-    return snapshot.docs.map((item) => ({ id: item.id, ...item.data() }) as Solicitud);
+    return this.mergeRequests(await this.getRequestsByField('usuarioUid', usuarioUid));
   }
 
   async getRequestsForProgrammer(programadorId: string): Promise<Solicitud[]> {
+    return this.getRequestsForProgrammerTarget(programadorId);
+  }
+
+  async getRequestsForProgrammerTarget(programadorId: string, programadorSlug?: string): Promise<Solicitud[]> {
+    const requestsById = await this.getRequestsByField('programadorId', programadorId);
+    const requestsBySlug =
+      programadorSlug && programadorSlug !== programadorId
+        ? await this.getRequestsByField('programadorSlug', programadorSlug)
+        : [];
+
+    return this.mergeRequests([...requestsById, ...requestsBySlug]);
+  }
+
+  private async getRequestsByField(fieldName: string, value: string): Promise<Solicitud[]> {
     const reference = collection(this.firebase.firestore, this.collectionName);
     const requestQuery = query(
       reference,
-      where('programadorId', '==', programadorId),
-      orderBy('fechaCreacion', 'desc'),
+      where(fieldName, '==', value),
     );
 
     const snapshot = await getDocs(requestQuery);
@@ -64,5 +68,29 @@ export class RequestService {
       estado: 'respondida',
       fechaActualizacion: serverTimestamp(),
     });
+  }
+
+  private mergeRequests(requests: Solicitud[]): Solicitud[] {
+    const uniqueRequests = new Map<string, Solicitud>();
+
+    for (const request of requests) {
+      uniqueRequests.set(request.id ?? `${request.usuarioUid}-${request.programadorId}`, request);
+    }
+
+    return Array.from(uniqueRequests.values()).sort(
+      (a, b) => this.timestampValue(b.fechaCreacion) - this.timestampValue(a.fechaCreacion),
+    );
+  }
+
+  private timestampValue(value: unknown): number {
+    if (value && typeof value === 'object' && 'toMillis' in value) {
+      return (value as { toMillis: () => number }).toMillis();
+    }
+
+    if (value instanceof Date) {
+      return value.getTime();
+    }
+
+    return 0;
   }
 }

@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  strapiUrl: 'http://localhost:1337',
+  strapiUrl: 'https://promising-dog-f30d84cc7c.strapiapp.com',
   firebase: {
     apiKey: 'AIzaSyDSd_rU1Xi13JkV9tkTCU-Fk979PXzrSok',
     authDomain: 'proyectogrupo-85ca7.firebaseapp.com',

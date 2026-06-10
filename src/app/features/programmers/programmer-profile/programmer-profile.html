@@ -20,29 +20,39 @@
           @if (currentUser$ | async) {
             <a [routerLink]="['/solicitar', programador.slug]" class="button primary">Enviar solicitud</a>
           } @else {
-            <a routerLink="/login" [queryParams]="{ returnUrl: '/solicitar/' + programador.slug }" class="button primary">Iniciar sesión para solicitar</a>
+            <a routerLink="/login" [queryParams]="{ returnUrl: '/solicitar/' + programador.slug }" class="button primary">
+              Iniciar sesion para solicitar
+            </a>
           }
           <a routerLink="/" fragment="proyectos" class="button secondary">Ver proyectos</a>
         </div>
 
         <div class="profile-links">
-          @if (programador.github) {
-            <a [href]="programador.github" target="_blank" rel="noopener">
-              <img src="/images/006-github.png" alt="" />
-              GitHub
-            </a>
-          }
-          @if (programador.linkedin) {
-            <a [href]="programador.linkedin" target="_blank" rel="noopener">
-              <img src="/images/007-linkedin.png" alt="" />
-              LinkedIn
-            </a>
-          }
-          @if (programador.correoContacto) {
-            <a [href]="'mailto:' + programador.correoContacto">
-              <img src="/images/002-telefono.png" alt="" />
-              {{ programador.correoContacto }}
-            </a>
+          @if (configuracion$ | async; as config) {
+            @if (programador.github) {
+              <a [href]="programador.github" target="_blank" rel="noopener">
+                @if (config.githubIcon) {
+                  <img [src]="config.githubIcon" alt="" />
+                }
+                GitHub
+              </a>
+            }
+            @if (programador.linkedin) {
+              <a [href]="programador.linkedin" target="_blank" rel="noopener">
+                @if (config.linkedinIcon) {
+                  <img [src]="config.linkedinIcon" alt="" />
+                }
+                LinkedIn
+              </a>
+            }
+            @if (programador.correoContacto) {
+              <a [href]="'mailto:' + programador.correoContacto">
+                @if (config.telefonoIcon) {
+                  <img [src]="config.telefonoIcon" alt="" />
+                }
+                {{ programador.correoContacto }}
+              </a>
+            }
           }
         </div>
       </div>

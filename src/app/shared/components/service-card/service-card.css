@@ -25,6 +25,12 @@
   width: 24px;
 }
 
+.icon-box span {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
 .service-copy {
   display: grid;
   gap: 10px;

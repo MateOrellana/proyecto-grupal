@@ -1,8 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { shareReplay } from 'rxjs';
 
 import { AuthService } from '../../../core/services/auth';
+import { StrapiService } from '../../../core/services/strapi';
 
 @Component({
   selector: 'app-navbar',
@@ -13,9 +15,11 @@ import { AuthService } from '../../../core/services/auth';
 export class Navbar {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly strapi = inject(StrapiService);
 
   readonly isScrolled = signal(false);
   readonly currentUser$ = this.auth.currentUser$;
+  readonly configuracion$ = this.strapi.getConfiguracionSitio().pipe(shareReplay(1));
 
   @HostListener('window:scroll')
   onWindowScroll() {

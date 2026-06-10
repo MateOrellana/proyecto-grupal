@@ -1,55 +1,42 @@
 <section id="inicio" class="hero">
-  <div class="hero-content">
-    <img src="/images/logoempresa.png" alt="WebFlow" class="hero-logo" />
-    <p class="eyebrow">Estudio web independiente</p>
-    <h1>WebFlow crea experiencias digitales sobrias, rápidas y listas para crecer.</h1>
-    <p class="hero-copy">
-      Desarrollamos interfaces modernas, sistemas web y soluciones conectadas a servicios
-      en la nube para marcas, emprendimientos y equipos que necesitan presencia profesional.
-    </p>
-    <div class="hero-actions">
-      <a routerLink="/" fragment="programadores" class="button primary">Conocer al equipo</a>
-      <a routerLink="/" fragment="proyectos" class="button secondary">Ver proyectos</a>
-    </div>
-  </div>
-</section>
-
-<section id="programadores" class="team-section">
-  @if (programadores$ | async; as programadores) {
-    <div class="team-layout">
-      @if (programadores[0]) {
-        <a class="member-card member-left" [routerLink]="['/programadores', programadores[0].slug]">
-          <img [src]="programadores[0].fotoPerfil" [alt]="programadores[0].nombreCompleto" />
-          <div class="member-copy">
-            <p>{{ programadores[0].especialidad }}</p>
-            <h2>{{ programadores[0].nombreCompleto }}</h2>
-            <span>{{ programadores[0].descripcionBreve }}</span>
-          </div>
-        </a>
+  @if (configuracion$ | async; as config) {
+    <div class="hero-content">
+      @if (config.logo) {
+        <img [src]="config.logo" [alt]="config.nombreEmpresa" class="hero-logo" />
       }
+      <p class="eyebrow">Estudio web independiente</p>
+      <h1>{{ config.nombreEmpresa }} crea experiencias digitales sobrias, rapidas y listas para crecer.</h1>
+      <p class="hero-copy">{{ config.descripcion }}</p>
+      <div class="hero-actions">
+        <a routerLink="/" fragment="programadores" class="button primary">Conocer al equipo</a>
+        <a routerLink="/" fragment="proyectos" class="button secondary">Ver proyectos</a>
+      </div>
+    </div>
 
-      <article class="company-card">
-        <img src="/images/logoempresa.png" alt="WebFlow" class="company-logo" />
-        <p class="eyebrow">WebFlow</p>
-        <h2>Dos perfiles, una misma forma de trabajar: claridad, orden y buen criterio visual.</h2>
-        <p>
-          Combinamos desarrollo frontend, arquitectura web, bases de datos, integracion de APIs y
-          gestion de contenido para entregar sitios y aplicaciones faciles de mantener.
-        </p>
-        <div class="company-image">
-          <img src="/images/imagenprogram.png" alt="Trabajo de desarrollo web" />
-        </div>
-      </article>
-
-      @if (programadores[1]) {
-        <a class="member-card member-right" [routerLink]="['/programadores', programadores[1].slug]">
-          <img [src]="programadores[1].fotoPerfil" [alt]="programadores[1].nombreCompleto" />
-          <div class="member-copy">
-            <p>{{ programadores[1].especialidad }}</p>
-            <h2>{{ programadores[1].nombreCompleto }}</h2>
-            <span>{{ programadores[1].descripcionBreve }}</span>
-          </div>
-        </a>
+    <div id="programadores" class="hero-team">
+      <p class="team-helper">Haz click en una foto para ver el perfil, proyectos y solicitud de contacto.</p>
+      @if (programadores$ | async; as programadores) {
+        <div class="members-grid" aria-label="Programadores de WebFlow">
+        @for (programador of programadores; track programador.id) {
+          <a class="member-card" [routerLink]="['/programadores', programador.slug]">
+            <div class="member-photo">
+              @if (programador.fotoPerfil) {
+                <img [src]="programador.fotoPerfil" [alt]="programador.nombreCompleto" />
+              } @else {
+                <div class="member-placeholder">{{ programador.nombreCompleto.slice(0, 2).toUpperCase() }}</div>
+              }
+              <div class="member-photo-label">
+                <h3>{{ programador.nombreCompleto }}</h3>
+              </div>
+            </div>
+            <div class="member-details">
+              <span>{{ programador.especialidad }}</span>
+              <p>{{ programador.descripcionBreve }}</p>
+              <strong>Ver perfil y proyectos</strong>
+            </div>
+          </a>
+        }
+      </div>
       }
     </div>
   }
@@ -64,7 +51,7 @@
   @if (servicios$ | async; as servicios) {
     <div class="grid three-columns">
       @for (servicio of servicios; track servicio.id) {
-        <app-service-card [service]="servicio" [iconSrc]="servicio.icono || serviceIcon(servicio.id)" />
+        <app-service-card [service]="servicio" [iconSrc]="servicio.icono" />
       }
     </div>
   }
@@ -72,31 +59,38 @@
 
 <section class="section tech-section">
   <div class="section-heading">
-    <p class="eyebrow">Tecnologías</p>
+    <p class="eyebrow">Tecnologias</p>
     <h2>Herramientas con las que construimos productos web.</h2>
   </div>
-  <div class="tech-categories-grid">
-    @for (category of techCategories; track category.title) {
-      <div class="tech-card" [style.border-top-color]="category.color">
-        <div class="tech-card-header">
-          <div class="mac-dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <h3 class="tech-card-title">{{ category.title }}</h3>
-        </div>
-        <div class="tech-items-grid">
-          @for (tech of category.items; track tech.name) {
-            <div class="tech-card-item">
-              <img [src]="tech.icon" [alt]="tech.name" />
-              <span>{{ tech.name }}</span>
+
+  @if (techCategories$ | async; as techCategories) {
+    <div class="tech-categories-grid">
+      @for (category of techCategories; track category.title) {
+        <div class="tech-card" [style.border-top-color]="category.color">
+          <div class="tech-card-header">
+            <div class="mac-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
             </div>
-          }
+            <h3 class="tech-card-title">{{ category.title }}</h3>
+          </div>
+          <div class="tech-items-grid">
+            @for (tech of category.items; track tech.name) {
+              <div class="tech-card-item">
+                @if (tech.icon) {
+                  <img [src]="tech.icon" [alt]="tech.name" />
+                } @else {
+                  <strong>{{ tech.name.slice(0, 2).toUpperCase() }}</strong>
+                }
+                <span>{{ tech.name }}</span>
+              </div>
+            }
+          </div>
         </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
+  }
 </section>
 
 <section id="proyectos" class="section">
@@ -119,23 +113,36 @@
     <p class="eyebrow">Contacto</p>
     <h2>Conversemos sobre tu proxima aplicacion web.</h2>
     <p>
-      Explora los perfiles del equipo y envia una solicitud al programador que mejor encaje con
-      tu idea.
+      Explora los perfiles del equipo y envia una solicitud al programador que mejor encaje con tu idea.
     </p>
-    <div class="contact-links">
-      <a href="https://github.com/sebmrd" target="_blank" rel="noopener">
-        <img src="/images/006-github.png" alt="" />
-        GitHub
-      </a>
-      <a href="https://linkedin.com/in/mateo-orellana" target="_blank" rel="noopener">
-        <img src="/images/007-linkedin.png" alt="" />
-        LinkedIn
-      </a>
-      <a href="mailto:morellana1@est.ups.edu.ec">
-        <img src="/images/002-telefono.png" alt="" />
-        Contacto
-      </a>
-    </div>
+    @if (configuracion$ | async; as config) {
+      <div class="contact-links">
+        @if (config.repositorioUrl) {
+          <a [href]="config.repositorioUrl" target="_blank" rel="noopener">
+            @if (config.githubIcon) {
+              <img [src]="config.githubIcon" alt="" />
+            }
+            GitHub
+          </a>
+        }
+        @if (config.linkedinSebastian) {
+          <a [href]="config.linkedinSebastian" target="_blank" rel="noopener">
+            @if (config.linkedinIcon) {
+              <img [src]="config.linkedinIcon" alt="" />
+            }
+            Sebastian
+          </a>
+        }
+        @if (config.linkedinMateo) {
+          <a [href]="config.linkedinMateo" target="_blank" rel="noopener">
+            @if (config.linkedinIcon) {
+              <img [src]="config.linkedinIcon" alt="" />
+            }
+            Mateo
+          </a>
+        }
+      </div>
+    }
   </div>
   <a routerLink="/" fragment="programadores" class="button primary">Elegir programador</a>
 </section>

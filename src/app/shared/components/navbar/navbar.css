@@ -1,12 +1,12 @@
 .navbar {
   align-items: center;
-  background: rgba(8, 9, 11, 0.18);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(18px);
+  background: rgba(8, 9, 11, 0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  backdrop-filter: blur(8px);
   display: flex;
-  gap: 18px;
+  gap: 30px;
   justify-content: space-between;
-  min-height: 72px;
+  min-height: 98px;
   padding: 0 7vw;
   position: sticky;
   top: 0;
@@ -18,38 +18,42 @@
 }
 
 .navbar.scrolled {
-  background: rgba(8, 9, 11, 0.94);
+  background: rgba(8, 9, 11, 0.96);
   border-bottom-color: rgba(255, 255, 255, 0.11);
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(18px);
 }
 
 .brand {
   align-items: center;
   color: var(--color-text);
   display: inline-flex;
-  font-weight: 700;
-  gap: 10px;
+  font-weight: 800;
+  gap: 16px;
   text-decoration: none;
 }
 
 .brand-mark {
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(250, 247, 238, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 8px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.26);
   display: inline-flex;
-  height: 40px;
+  height: 68px;
   justify-content: center;
-  width: 40px;
+  width: 68px;
 }
 
 .brand-mark img {
-  height: 29px;
+  height: 54px;
   object-fit: contain;
-  width: 29px;
+  width: 54px;
 }
 
 .brand-text {
+  font-size: 1.58rem;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
@@ -57,14 +61,14 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 24px;
   justify-content: flex-end;
 }
 
 .nav-links a {
   color: var(--color-muted);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -76,13 +80,13 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   justify-content: flex-end;
 }
 
 .user-email {
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 0.98rem;
   font-weight: 700;
   max-width: 220px;
   overflow: hidden;
@@ -95,7 +99,8 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 14px;
-    padding: 16px 20px;
+    min-height: auto;
+    padding: 16px 20px 18px;
   }
 
   .nav-links {
