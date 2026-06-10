@@ -1,0 +1,53 @@
+@if (project$ | async; as project) {
+  <section class="project-detail">
+    <a routerLink="/" fragment="proyectos" class="back-link">Volver a proyectos</a>
+
+    <div class="detail-layout">
+      <div class="media-panel">
+        @if (project.imagenPrincipal) {
+          <img [src]="project.imagenPrincipal" [alt]="project.nombre" />
+        } @else {
+          <div class="media-placeholder">{{ project.nombre.slice(0, 2).toUpperCase() }}</div>
+        }
+      </div>
+
+      <article class="detail-copy">
+        <p class="eyebrow">{{ project.tipo }}</p>
+        <h1>{{ project.nombre }}</h1>
+        <p class="lead">{{ project.descripcionBreve }}</p>
+        <p>{{ project.descripcionCompleta }}</p>
+
+        @if (project.areaDestacada) {
+          <div class="highlight">
+            <span>Area destacada</span>
+            <strong>{{ project.areaDestacada }}</strong>
+          </div>
+        }
+
+        <div class="tech-list" aria-label="Tecnologias utilizadas">
+          @for (technology of project.tecnologias; track technology) {
+            <span>{{ technology }}</span>
+          }
+        </div>
+
+        <div class="actions">
+          @if (project.repositorioUrl) {
+            <a [href]="project.repositorioUrl" target="_blank" rel="noopener" class="button secondary">
+              Repositorio
+            </a>
+          }
+          @if (project.demoUrl) {
+            <a [href]="project.demoUrl" target="_blank" rel="noopener" class="button primary">
+              Ver demo
+            </a>
+          }
+        </div>
+      </article>
+    </div>
+  </section>
+} @else {
+  <section class="empty-page">
+    <h1>Proyecto no encontrado</h1>
+    <a routerLink="/" fragment="proyectos">Volver a proyectos</a>
+  </section>
+}

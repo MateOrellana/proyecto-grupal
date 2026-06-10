@@ -1,4 +1,4 @@
-export type TipoProyecto = 'academico' | 'personal' | 'laboral' | 'simulado';
+export type TipoProyecto = string;
 
 export interface Proyecto {
   id: string;
@@ -13,4 +13,5 @@ export interface Proyecto {
   demoUrl?: string;
   destacado: boolean;
   programadores: string[];
+  areaDestacada?: string;
 }

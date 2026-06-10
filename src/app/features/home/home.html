@@ -1,81 +1,107 @@
 <section id="inicio" class="hero">
-  <div class="hero-portraits" aria-hidden="true">
-    <img src="/images/programador1.png" alt="" class="portrait portrait-one" />
-    <img src="/images/programador2.png" alt="" class="portrait portrait-two" />
-  </div>
-
   <div class="hero-content">
-    <p class="eyebrow">Portafolio profesional</p>
-    <h1>Soluciones web claras para ideas que necesitan verse bien y funcionar mejor.</h1>
+    <img src="/images/logoempresa.png" alt="WebFlow" class="hero-logo" />
+    <p class="eyebrow">Estudio web independiente</p>
+    <h1>WebFlow crea experiencias digitales sobrias, rapidas y listas para crecer.</h1>
     <p class="hero-copy">
-      Somos dos programadores construyendo una aplicacion con Angular, Firebase, Firestore y
-      Strapi para presentar perfiles, servicios, proyectos y solicitudes de contacto.
+      Desarrollamos interfaces modernas, sistemas web y soluciones conectadas a servicios en la nube
+      para marcas, emprendimientos y equipos que necesitan presencia profesional.
     </p>
     <div class="hero-actions">
-      <a routerLink="/" fragment="nosotros" class="button primary">Conocer equipo</a>
-      <a routerLink="/" fragment="contacto" class="button secondary">Solicitar proyecto</a>
+      <a routerLink="/" fragment="programadores" class="button primary">Conocer al equipo</a>
+      <a routerLink="/" fragment="proyectos" class="button secondary">Ver proyectos</a>
+    </div>
+  </div>
+
+  <div class="hero-panel">
+    <img src="/images/imagenprogram.png" alt="Codigo de aplicacion web" />
+    <div class="panel-copy">
+      <strong>WebFlow</strong>
+      <span>Frontend, backend, CMS y despliegue web.</span>
     </div>
   </div>
 </section>
 
-<section id="nosotros" class="section about-section">
-  <div class="section-heading">
-    <p class="eyebrow">Sobre nosotros</p>
-    <h2>Dos perfiles que se complementan para crear aplicaciones web completas.</h2>
-  </div>
-
-  <div class="about-grid">
-    <p>
-      El proyecto presenta un portafolio multiusuario donde cada programador tiene su propio
-      perfil, sus proyectos relacionados y una forma directa para recibir solicitudes.
-    </p>
-    <div class="about-stats">
-      <span>Angular</span>
-      <span>Firebase Auth</span>
-      <span>Cloud Firestore</span>
-      <span>Strapi CMS</span>
-    </div>
-  </div>
-</section>
-
-<section id="programadores" class="section">
-  <div class="section-heading">
-    <p class="eyebrow">Equipo</p>
-    <h2>Programadores</h2>
-  </div>
-
+<section id="programadores" class="team-section">
   @if (programadores$ | async; as programadores) {
-    <div class="grid two-columns">
-      @for (programador of programadores; track programador.id) {
-        <app-programmer-card [programmer]="programador" />
+    <div class="team-layout">
+      @if (programadores[0]) {
+        <a class="member-card member-left" [routerLink]="['/programadores', programadores[0].slug]">
+          <img [src]="programadores[0].fotoPerfil" [alt]="programadores[0].nombreCompleto" />
+          <div class="member-copy">
+            <p>{{ programadores[0].especialidad }}</p>
+            <h2>{{ programadores[0].nombreCompleto }}</h2>
+            <span>{{ programadores[0].descripcionBreve }}</span>
+          </div>
+        </a>
+      }
+
+      <article class="company-card">
+        <img src="/images/logoempresa.png" alt="WebFlow" class="company-logo" />
+        <p class="eyebrow">WebFlow</p>
+        <h2>Dos perfiles, una misma forma de trabajar: claridad, orden y buen criterio visual.</h2>
+        <p>
+          Combinamos desarrollo frontend, arquitectura web, bases de datos, integracion de APIs y
+          gestion de contenido para entregar sitios y aplicaciones faciles de mantener.
+        </p>
+        <div class="company-image">
+          <img src="/images/imagenprogram.png" alt="Trabajo de desarrollo web" />
+        </div>
+      </article>
+
+      @if (programadores[1]) {
+        <a class="member-card member-right" [routerLink]="['/programadores', programadores[1].slug]">
+          <img [src]="programadores[1].fotoPerfil" [alt]="programadores[1].nombreCompleto" />
+          <div class="member-copy">
+            <p>{{ programadores[1].especialidad }}</p>
+            <h2>{{ programadores[1].nombreCompleto }}</h2>
+            <span>{{ programadores[1].descripcionBreve }}</span>
+          </div>
+        </a>
       }
     </div>
   }
 </section>
 
-<section id="servicios" class="section section-panel">
+<section id="servicios" class="section section-glass">
   <div class="section-heading">
     <p class="eyebrow">Servicios</p>
-    <h2>Areas de especializacion</h2>
+    <h2>Areas donde WebFlow puede ayudarte.</h2>
   </div>
 
   @if (servicios$ | async; as servicios) {
     <div class="grid three-columns">
       @for (servicio of servicios; track servicio.id) {
-        <app-service-card [service]="servicio" [iconSrc]="serviceIcon(servicio.id)" />
+        <app-service-card [service]="servicio" [iconSrc]="servicio.icono || serviceIcon(servicio.id)" />
       }
     </div>
   }
 </section>
 
+<section class="section tech-section">
+  <div class="section-heading">
+    <p class="eyebrow">Tecnologias</p>
+    <h2>Herramientas con las que construimos productos web.</h2>
+  </div>
+
+  <div class="tech-grid">
+    @for (technology of technologies; track technology.name) {
+      <div class="tech-item">
+        <img [src]="technology.icon" [alt]="technology.name" />
+        <span>{{ technology.name }}</span>
+      </div>
+    }
+  </div>
+</section>
+
 <section id="proyectos" class="section">
   <div class="section-heading">
     <p class="eyebrow">Proyectos</p>
-    <h2>Proyectos destacados</h2>
+    <h2>Trabajos destacados</h2>
   </div>
 
   @if (proyectosDestacados$ | async; as proyectos) {
-    <div class="grid two-columns">
+    <div class="grid project-grid">
       @for (proyecto of proyectos; track proyecto.id) {
         <app-project-card [project]="proyecto" />
       }
@@ -86,11 +112,25 @@
 <section id="contacto" class="contact-section">
   <div class="contact-copy">
     <p class="eyebrow">Contacto</p>
-    <h2>Elige un programador y envia una solicitud para tu proyecto.</h2>
+    <h2>Conversemos sobre tu proxima aplicacion web.</h2>
     <p>
-      En la siguiente fase se conectara el formulario con Firestore para registrar y gestionar
-      cada solicitud.
+      Explora los perfiles del equipo y envia una solicitud al programador que mejor encaje con
+      tu idea.
     </p>
+    <div class="contact-links">
+      <a href="https://github.com/sebmrd" target="_blank" rel="noopener">
+        <img src="/images/006-github.png" alt="" />
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/mateo-orellana" target="_blank" rel="noopener">
+        <img src="/images/007-linkedin.png" alt="" />
+        LinkedIn
+      </a>
+      <a href="mailto:morellana1@est.ups.edu.ec">
+        <img src="/images/002-telefono.png" alt="" />
+        Contacto
+      </a>
+    </div>
   </div>
   <a routerLink="/" fragment="programadores" class="button primary">Elegir programador</a>
 </section>

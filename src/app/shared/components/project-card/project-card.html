@@ -1,15 +1,19 @@
 <article class="project-card">
-  @if (project.imagenPrincipal) {
-    <img [src]="project.imagenPrincipal" [alt]="project.nombre" class="project-image" />
-  } @else {
-    <div class="project-placeholder">
-      <span>{{ project.nombre.slice(0, 2).toUpperCase() }}</span>
-    </div>
-  }
+  <a class="media-link" [routerLink]="['/proyectos', project.slug]" aria-label="Ver detalle del proyecto">
+    @if (project.imagenPrincipal) {
+      <img [src]="project.imagenPrincipal" [alt]="project.nombre" class="project-image" />
+    } @else {
+      <div class="project-placeholder">
+        <span>{{ project.nombre.slice(0, 2).toUpperCase() }}</span>
+      </div>
+    }
+  </a>
 
   <div class="content">
     <span class="type">{{ project.tipo }}</span>
-    <h3>{{ project.nombre }}</h3>
+    <h3>
+      <a [routerLink]="['/proyectos', project.slug]">{{ project.nombre }}</a>
+    </h3>
     <p>{{ project.descripcionBreve }}</p>
   </div>
 
@@ -20,6 +24,7 @@
   </div>
 
   <div class="actions">
+    <a [routerLink]="['/proyectos', project.slug]">Ver detalle</a>
     @if (project.repositorioUrl) {
       <a [href]="project.repositorioUrl" target="_blank" rel="noopener">Repositorio</a>
     }

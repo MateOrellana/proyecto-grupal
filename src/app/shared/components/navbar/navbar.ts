@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth';
@@ -14,7 +14,13 @@ export class Navbar {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
+  readonly isScrolled = signal(false);
   readonly currentUser$ = this.auth.currentUser$;
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.isScrolled.set(window.scrollY > 28);
+  }
 
   async logout() {
     await this.auth.logout();

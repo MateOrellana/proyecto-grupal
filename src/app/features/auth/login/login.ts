@@ -66,7 +66,7 @@ export class Login {
     const code = (error as { code?: string }).code;
 
     if (code === 'auth/invalid-credential' || code === 'auth/wrong-password') {
-      return 'Correo o contrasena incorrectos.';
+      return 'Correo o contraseña incorrectos.';
     }
 
     if (code === 'auth/user-not-found') {
@@ -74,9 +74,9 @@ export class Login {
     }
 
     if (code === 'auth/popup-closed-by-user') {
-      return 'Se cerro la ventana de Google antes de completar el ingreso.';
+      return 'Se cerró la ventana de Google antes de completar el ingreso.';
     }
 
-    return 'No se pudo iniciar sesion. Revisa los datos e intenta nuevamente.';
+    return 'No se pudo iniciar sesión. Revisa los datos e intenta nuevamente.';
   }
 }

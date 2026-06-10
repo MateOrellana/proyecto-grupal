@@ -1,12 +1,14 @@
-<header class="navbar">
+<header class="navbar" [class.scrolled]="isScrolled()">
   <a class="brand" routerLink="/">
-    <span class="brand-mark">P</span>
-    <span class="brand-text">Portafolio Dev</span>
+    <span class="brand-mark">
+      <img src="/images/logoempresa.png" alt="WebFlow" />
+    </span>
+    <span class="brand-text">WebFlow</span>
   </a>
 
   <nav class="nav-links" aria-label="Navegacion principal">
     <a routerLink="/" fragment="inicio">Inicio</a>
-    <a routerLink="/" fragment="nosotros">Nosotros</a>
+    <a routerLink="/" fragment="programadores">Equipo</a>
     <a routerLink="/" fragment="servicios">Servicios</a>
     <a routerLink="/" fragment="proyectos">Proyectos</a>
     <a routerLink="/" fragment="contacto">Contacto</a>

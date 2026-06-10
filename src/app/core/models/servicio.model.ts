@@ -3,5 +3,6 @@ export interface Servicio {
   nombre: string;
   descripcion: string;
   categoria?: string;
+  icono?: string;
   activo: boolean;
 }

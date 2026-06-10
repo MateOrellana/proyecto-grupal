@@ -1,4 +1,4 @@
 .page-shell {
-  background: var(--color-bg);
+  background: transparent;
   min-height: calc(100vh - 140px);
 }

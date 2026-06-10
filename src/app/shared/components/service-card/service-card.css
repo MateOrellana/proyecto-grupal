@@ -20,7 +20,7 @@
 }
 
 .icon-box img {
-  filter: invert(88%) sepia(28%) saturate(606%) hue-rotate(348deg) brightness(97%) contrast(92%);
+  filter: brightness(0) invert(1);
   height: 24px;
   width: 24px;
 }

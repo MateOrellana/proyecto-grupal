@@ -66,11 +66,11 @@ export class Register {
     }
 
     if (code === 'auth/weak-password') {
-      return 'La contrasena es demasiado debil.';
+      return 'La contraseña es demasiado débil.';
     }
 
     if (code === 'auth/popup-closed-by-user') {
-      return 'Se cerro la ventana de Google antes de completar el registro.';
+      return 'Se cerró la ventana de Google antes de completar el registro.';
     }
 
     return 'No se pudo crear la cuenta. Revisa los datos e intenta nuevamente.';
